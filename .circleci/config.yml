@@ -20,7 +20,7 @@ jobs:
           command: docker-compose config --quiet
       - run:
           name: 'Start all services'
-          command: docker compose up --quiet-pull
+          command: docker compose up -d
       - run:
           name: Wait for Elasticsearch 6
           command: dockerize -wait tcp://localhost:9200 -timeout 1m
