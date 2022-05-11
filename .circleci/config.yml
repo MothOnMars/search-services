@@ -20,9 +20,7 @@ jobs:
           command: docker-compose config --quiet
       - run:
           name: 'Start all services'
-          command: |
-            set -x
-            docker compose up -d
+          command: docker compose up --quiet-pull
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
