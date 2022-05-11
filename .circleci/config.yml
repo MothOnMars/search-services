@@ -21,6 +21,9 @@ jobs:
       - run:
           name: 'Start all services'
           command: docker compose up --quiet-pull
+      - run:
+          name: Wait for Elasticsearch 6
+          command: dockerize -wait tcp://localhost:9200 -timeout 1m
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
