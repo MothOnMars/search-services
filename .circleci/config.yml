@@ -34,7 +34,4 @@ jobs:
 workflows:
   say-hello-workflow:
     jobs:
-      - test:
-          matrix:
-            parameters:
-              os: [macos]
+      - test
