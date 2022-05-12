@@ -27,7 +27,7 @@ services:
       - cluster.name=es7-docker-cluster
       - discovery.type=single-node
       - xpack.license.self_generated.type=trial
-      - xpack.monitoring.enabled=false
+      - xpack.monitoring.enabled=false:NER
       - xpack.security.enabled=false
       - 'ES_JAVA_OPTS=-Xms256m -Xmx256m'
     ulimits:
@@ -40,7 +40,7 @@ services:
       - 9207:9200
 
   kibana6:
-    image: docker.elastic.co/kibana/kibana:6.8.15
+    image: docker.elastic.co/kibana/kibana:6.8.23
     depends_on:
       - elasticsearch6
     ports:
@@ -49,7 +49,7 @@ services:
       - ELASTICSEARCH_HOSTS=http://elasticsearch6:9200
 
   kibana7:
-    image: docker.elastic.co/kibana/kibana:7.8.1
+    image: docker.elastic.co/kibana/kibana:7.17.3
     depends_on:
       - elasticsearch7
     ports:
@@ -58,6 +58,7 @@ services:
       - ELASTICSEARCH_HOSTS=http://elasticsearch7:9200
 
   mysql:
+    platform: linux/amd64
     image: mysql:5.7
     volumes:
       - db_data:/var/lib/mysql
@@ -73,6 +74,7 @@ services:
 
   # Required by search-gov
   tika:
+    platform: linux/amd64
     image: apache/tika:1.24.1
     ports:
       - 9998:9998
