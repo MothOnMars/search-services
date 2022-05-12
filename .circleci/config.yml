@@ -18,6 +18,7 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
+      - install-dockerize
       - run:
           name: 'Validate configuration'
           command: docker-compose config --quiet
