@@ -21,7 +21,9 @@ services:
       - 9200:9200
 
   elasticsearch7:
-    image: searchgov/elasticsearch:7.17.3
+    build:
+      context: ./
+      dockerfile: Dockerfile.elasticsearch7
     environment:
       - bootstrap.memory_lock=true
       - cluster.name=es7-docker-cluster
