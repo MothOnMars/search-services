@@ -1,14 +1,14 @@
 # wip based on https://www.elastic.co/guide/en/elasticsearch/reference/6.8/docker.html
 services:
-  elasticsearch6_1:
+  elasticsearch6-1:
     build:
       context: ./
       dockerfile: Dockerfile.elasticsearch6
-    container_name: elasticsearch6_1
+    container_name: elasticsearch6-1
     environment:
       - bootstrap.memory_lock=true
       - cluster.name=es6-docker-cluster
-      - discovery.type=single-node
+      #- discovery.type=single-node
       - xpack.license.self_generated.type=trial
       - xpack.monitoring.enabled=false
       - xpack.security.enabled=false
@@ -18,32 +18,32 @@ services:
         soft: -1
         hard: -1
     volumes:
-      - es_6_1_data:/usr/share/elasticsearch/data
+      - es_6-1_data:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
     networks:
       - esnet
 
-  elasticsearch6_2:
+  elasticsearch6-2:
     build:
       context: ./
       dockerfile: Dockerfile.elasticsearch6
-    container_name: elasticsearch6_2
+    container_name: elasticsearch6-2
     environment:
       - bootstrap.memory_lock=true
       - cluster.name=es6-docker-cluster
-      - discovery.type=single-node
+      #- discovery.type=single-node
       - xpack.license.self_generated.type=trial
       - xpack.monitoring.enabled=false
       - xpack.security.enabled=false
       - 'ES_JAVA_OPTS=-Xms256m -Xmx256m'
-      - "discovery.zen.ping.unicast.hosts=elasticsearch"
+      - "discovery.zen.ping.unicast.hosts=elasticsearch6-1"
     ulimits:
       memlock:
         soft: -1
         hard: -1
     volumes:
-      - es_6_2_data:/usr/share/elasticsearch/data
+      - es_6-2_data:/usr/share/elasticsearch/data
     networks:
       - esnet
 
@@ -71,7 +71,7 @@ services:
   kibana6:
     image: docker.elastic.co/kibana/kibana:6.8.23
     depends_on:
-      - elasticsearch6_1
+      - elasticsearch6-1
     ports:
       - 5601:5601
     environment:
@@ -110,9 +110,9 @@ services:
 
 volumes:
   db_data:
-  es_6_1_data:
+  es_6-1_data:
     driver: local
-  es_6_2_data:
+  es_6-2_data:
     driver: local
   es_7_data:
 
